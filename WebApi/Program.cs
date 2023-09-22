@@ -1,4 +1,12 @@
+using Domain.Interfaces.Generics;
+using Domain.Interfaces.ICategoria;
+using Domain.Interfaces.IDespesa;
+using Domain.Interfaces.ISistemaFinaceiro;
+using Domain.Interfaces.IUsuarioSistemaFinaceiro;
+using Entities.Entidades;
 using Infra.Configuracao;
+using Infra.Repositorio;
+using Infra.Repositorio.Generics;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +18,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<BaseContext>(options =>
+               options.UseSqlServer(
+                   builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<BaseContext>();
+
+
+builder.Services.AddSingleton(typeof(InterfaceGeneric<>), typeof(RepositorioGenerics<>));
+builder.Services.AddSingleton<InterfaceCategoria, RepositorioCategoria>();
+builder.Services.AddSingleton<InterfaceDespesa, RepositorioDespesa>();
+builder.Services.AddSingleton<InterfaceSistemaFinaceiro, RepositorioSistemaFinanceiro>();
+builder.Services.AddSingleton<InterfaceUsuarioSistemaFinaceiro, RepositorioUsuarioSistemaFinaceiro>();
 
 var app = builder.Build();
 

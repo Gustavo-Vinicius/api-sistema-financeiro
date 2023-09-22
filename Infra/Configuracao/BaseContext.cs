@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Configuracao
 {
-    public class ContextBase : IdentityDbContext<ApplicationUser>
+    public class BaseContext : IdentityDbContext<ApplicationUser>
     {
-        public ContextBase(DbContextOptions options) : base(options) { }
+        public BaseContext(DbContextOptions options) : base(options) { }
 
         public DbSet<SistemaFinanceiro> SistemaFinanceiros { set; get; }
         public DbSet<UsuarioSistemaFinanceiro> UsuarioSistemaFinanceiros { set; get; }

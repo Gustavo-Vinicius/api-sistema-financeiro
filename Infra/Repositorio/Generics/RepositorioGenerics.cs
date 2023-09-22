@@ -8,16 +8,16 @@ namespace Infra.Repositorio.Generics
 {
     public class RepositorioGenerics<T> : InterfaceGeneric<T>, IDisposable where T : class
     {
-        private readonly DbContextOptions<ContextBase> _OptionsBuilder;
+        private readonly DbContextOptions<BaseContext> _OptionsBuilder;
 
         public RepositorioGenerics()
         {
-            _OptionsBuilder = new DbContextOptions<ContextBase>();
+            _OptionsBuilder = new DbContextOptions<BaseContext>();
         }
 
         public async Task Add(T Objeto)
         {
-            using (var data = new ContextBase(_OptionsBuilder))
+            using (var data = new BaseContext(_OptionsBuilder))
             {
                 await data.Set<T>().AddAsync(Objeto);
                 await data.SaveChangesAsync();
@@ -26,7 +26,7 @@ namespace Infra.Repositorio.Generics
 
         public async Task Delete(T Objeto)
         {
-            using (var data = new ContextBase(_OptionsBuilder))
+            using (var data = new BaseContext(_OptionsBuilder))
             {
                 data.Set<T>().Remove(Objeto);
                 await data.SaveChangesAsync();
@@ -35,7 +35,7 @@ namespace Infra.Repositorio.Generics
 
         public async Task<T> GetEntityById(int Id)
         {
-            using (var data = new ContextBase(_OptionsBuilder))
+            using (var data = new BaseContext(_OptionsBuilder))
             {
                 return await data.Set<T>().FindAsync(Id);
             }
@@ -43,7 +43,7 @@ namespace Infra.Repositorio.Generics
 
         public async Task<List<T>> List()
         {
-            using (var data = new ContextBase(_OptionsBuilder))
+            using (var data = new BaseContext(_OptionsBuilder))
             {
                 return await data.Set<T>().ToListAsync();
             }
@@ -51,7 +51,7 @@ namespace Infra.Repositorio.Generics
 
         public async Task Update(T Objeto)
         {
-            using (var data = new ContextBase(_OptionsBuilder))
+            using (var data = new BaseContext(_OptionsBuilder))
             {
                 data.Set<T>().Update(Objeto);
                 await data.SaveChangesAsync();
