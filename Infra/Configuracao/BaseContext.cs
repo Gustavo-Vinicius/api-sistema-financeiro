@@ -33,7 +33,7 @@ namespace Infra.Configuracao
 
         public string ObterStringConexao()
         {
-            return "Server=localhost; Database=FINACEIRO_2023; Integrated Security=True; trustServerCertificate=true";
+            return "Server=localhost; Database=SISTEMA_FINACEIRO; Integrated Security=True; trustServerCertificate=true";
         }
 
     }
