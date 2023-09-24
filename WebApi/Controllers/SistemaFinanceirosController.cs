@@ -65,7 +65,7 @@ namespace WebApi.Controllers
 
                 await _InterfaceSistemaFinanceiro.Delete(sistemaFinanceiro);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
